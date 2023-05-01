@@ -1,0 +1,10 @@
+/* different background colors for jumbotron and body  */ 
+.jumbotron {
+    background-color: #563d7c;
+    color: #fff;
+}
+
+body {
+    background-color: #eee;
+}
+
