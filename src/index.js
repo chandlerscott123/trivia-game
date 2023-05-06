@@ -21,8 +21,6 @@ import UI from './js/UI.js';
 
 function getQuestions(event, UIobject){
   event.preventDefault();
-  console.log('scope: getQuestions');
-  console.log(UIobject instanceof UI); // check if UIobject is an instance of the UI class
   
   let request = new XMLHttpRequest();
   const url ='https://opentdb.com/api.php?amount=1&difficulty=easy&type=multiple';
@@ -52,8 +50,6 @@ function getQuestions(event, UIobject){
 */
 function printGame(UIobject){
 
-  console.log(UIobject instanceof UI); // check if UIobject is still an instance of the UI class
-  console.log('scope: printGame');
 
   //create the questions form using UI class
   UIobject.createDiv('container', 'questions-container', '');
@@ -217,7 +213,7 @@ function printScore(UIobject){
 
 function handleAnswerSubmit(event, UIobject){
   event.preventDefault();
-  console.log('submitted');
+
 
   checkAnswers(UIobject);
   printScore(UIobject);
@@ -259,8 +255,7 @@ function reset(event, UIobject){
     gameState.reset();
   }
   else {
-    console.log('scope: reset');
-    console.log(UIobject instanceof UI); // check if UIobject is still an instance of the UI class
+
     gameState.reset();
     document.querySelector('#questions-form'+`${gameState.currentGameInstance}`).remove();
 
@@ -304,7 +299,6 @@ function reset(event, UIobject){
 window.addEventListener('load', function(){
 
   const UIobject = new UI();
-  console.log(UIobject instanceof UI); // check if UIobject is an instance of the UI class
   //generate game event listener
   const generateGameButton = document.querySelector('#start');
   generateGameButton.addEventListener('click', (event) => getQuestions(event, UIobject));
