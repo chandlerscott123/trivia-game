@@ -8,3 +8,35 @@ body {
     background-color: #eee;
 }
 
+/* add some top padding to the header and bottom padding to the footer */
+header {
+    padding-top: 2rem;
+}
+
+footer {
+    padding-bottom: 2rem;
+}
+
+/* add spacing to the top and bottom of the questions container */
+#questions-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* spacing between each question */
+.question {
+    margin-bottom: 2rem;
+}
+
+/*hidden class to hide the questions container until the user clicks the start button */
+.hidden {
+    display: none;
+}
+
+/* spacing between submit and try again buttons, display in-line, pad buttons equally with questions container */
+#start, #game-reset {
+    margin-right: 1rem;
+    display: inline;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
