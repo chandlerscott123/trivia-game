@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
 import gameState from './js/gameState.js';
 import UI from './js/UI.js';
-
+import TriviaSet from './js/getTriviaSet';
 
 
 /* 
@@ -22,22 +22,14 @@ import UI from './js/UI.js';
 function getQuestions(event, UIobject){
   event.preventDefault();
   
-  let request = new XMLHttpRequest();
-  const url ='https://opentdb.com/api.php?amount=1&difficulty=easy&type=multiple';
-
-  request.addEventListener('loadend', function(){
-    const response = JSON.parse(this.responseText);
-    if(this.status === 200){
-
-      gameState.storeQuestionSet(response);
-      printGame(UIobject);
-    }
-    else{
-      printError(response, UIobject);
-    }
+  let promise = TriviaSet.getTriviaSet();
+ 
+  promise.then(function(response){
+    gameState.storeQuestionSet(response);
+    printGame(UIobject);
+  }, function(error){
+    printError(error, UIobject);
   });
-  request.open('GET', url, true);
-  request.send();
 }
 
 /*
@@ -168,9 +160,6 @@ function checkAnswers(UIobject){
     return answer.value;
   });
 
-  // Reset the score before checking the answers
-  gameState.resetScore();
-
   // Set user answers in the gameState object
   gameState.setUserAnswers(answerValues);
 
@@ -184,6 +173,8 @@ function checkAnswers(UIobject){
 
   //color text of correct answer green, bold and add checkmark icon
   UIobject.colorCorrectAnswers(gameState.questions);
+
+
 
 }
 
@@ -212,12 +203,14 @@ function printScore(UIobject){
 */
 
 function handleAnswerSubmit(event, UIobject){
+  console.log(event);
   event.preventDefault();
 
 
   checkAnswers(UIobject);
   printScore(UIobject);
   UIobject.printTryAgain(UIobject);
+  
 
   const tryAgainButton = document.querySelector('#game-reset');
   tryAgainButton.addEventListener('click', (event) => reset(event, UIobject));
